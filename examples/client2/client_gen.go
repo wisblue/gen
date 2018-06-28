@@ -1,6 +1,6 @@
 // Code generated; DO NOT EDIT.
 
-//
+// client_gen.go
 package main
 
 import (
@@ -17,10 +17,13 @@ type Item struct {
 	Message string // Name is the message
 }
 
+// ItemServices #path:"/item/"#
+type ItemServices struct{}
+
 var Client = requests.NewClient().NewRequest()
 
-// UpdateItem #route:"POST /item/{itemID}"#
-func UpdateItem(_userID int, _itemID int, _item *Item) (_err error) {
+// UpdateItem #route:"POST /{itemID}"#
+func (ItemServices) UpdateItem(_userID int, _itemID int, _item *Item) (_err error) {
 	resp, err := Client.Clone().
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetPath("itemID", fmt.Sprint(_itemID)).
@@ -45,11 +48,11 @@ func UpdateItem(_userID int, _itemID int, _item *Item) (_err error) {
 	return
 }
 
-// ListItem #route:"GET /item/"#
-func ListItem(_userID int) (_items []*Item, _err error) {
+// ListItem #route:"GET /"#
+func (ItemServices) ListItem(_userID int) (_items []*Item, _err error) {
 	resp, err := Client.Clone().
 		SetQuery("userID", fmt.Sprint(_userID)).
-		Get("/item/")
+		Get("/item")
 
 	if err != nil {
 		return nil, err
@@ -71,8 +74,8 @@ func ListItem(_userID int) (_items []*Item, _err error) {
 	return
 }
 
-// GetItem #route:"GET /item/{itemID}"#
-func GetItem(_userID int, _itemID int) (_item *Item, _err error) {
+// GetItem #route:"GET /{itemID}"#
+func (ItemServices) GetItem(_userID int, _itemID int) (_item *Item, _err error) {
 	resp, err := Client.Clone().
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetPath("itemID", fmt.Sprint(_itemID)).
@@ -98,8 +101,8 @@ func GetItem(_userID int, _itemID int) (_item *Item, _err error) {
 	return
 }
 
-// DeleteItem #route:"DELETE /item/{itemID}"#
-func DeleteItem(_userID int, _itemID int) (_err error) {
+// DeleteItem #route:"DELETE /{itemID}"#
+func (ItemServices) DeleteItem(_userID int, _itemID int) (_err error) {
 	resp, err := Client.Clone().
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetPath("itemID", fmt.Sprint(_itemID)).
@@ -123,12 +126,12 @@ func DeleteItem(_userID int, _itemID int) (_err error) {
 	return
 }
 
-// CreateItem #route:"PUT /item/"#
-func CreateItem(_userID int, _item *Item) (_itemID int, _err error) {
+// CreateItem #route:"PUT /"#
+func (ItemServices) CreateItem(_userID int, _item *Item) (_itemID int, _err error) {
 	resp, err := Client.Clone().
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetJSON(_item).
-		Put("/item/")
+		Put("/item")
 
 	if err != nil {
 		return 0, err

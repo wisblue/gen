@@ -1,7 +1,7 @@
 // Code generated; DO NOT EDIT.
 
-//
-package route1
+// router_gen.go
+package route2
 
 import (
 	"encoding/json"
@@ -14,36 +14,39 @@ import (
 func Router() *mux.Router {
 	router := mux.NewRouter()
 
+	// ItemServices Define the method scope
+	var _ItemServices ItemServices
+
 	// Registered routing POST /item/{itemID}
 	router.Path("/item/{itemID}").
 		Methods("POST").
-		HandlerFunc(_UpdateItem)
+		HandlerFunc(_ItemServices._UpdateItem)
 
-	// Registered routing GET /item/
-	router.Path("/item/").
+	// Registered routing GET /item
+	router.Path("/item").
 		Methods("GET").
-		HandlerFunc(_ListItem)
+		HandlerFunc(_ItemServices._ListItem)
 
 	// Registered routing GET /item/{itemID}
 	router.Path("/item/{itemID}").
 		Methods("GET").
-		HandlerFunc(_GetItem)
+		HandlerFunc(_ItemServices._GetItem)
 
 	// Registered routing DELETE /item/{itemID}
 	router.Path("/item/{itemID}").
 		Methods("DELETE").
-		HandlerFunc(_DeleteItem)
+		HandlerFunc(_ItemServices._DeleteItem)
 
-	// Registered routing PUT /item/
-	router.Path("/item/").
+	// Registered routing PUT /item
+	router.Path("/item").
 		Methods("PUT").
-		HandlerFunc(_CreateItem)
+		HandlerFunc(_ItemServices._CreateItem)
 
 	return router
 }
 
 // _UpdateItem Is the route of UpdateItem
-func _UpdateItem(w http.ResponseWriter, r *http.Request) {
+func (s ItemServices) _UpdateItem(w http.ResponseWriter, r *http.Request) {
 
 	// Parsing the query for userID.
 	var _userID int
@@ -65,7 +68,7 @@ func _UpdateItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call UpdateItem.
-	_err := UpdateItem(_userID, _itemID, _item)
+	_err := s.UpdateItem(_userID, _itemID, _item)
 
 	// Response code 400 Bad Request for err.
 	if _err != nil {
@@ -78,7 +81,7 @@ func _UpdateItem(w http.ResponseWriter, r *http.Request) {
 }
 
 // _ListItem Is the route of ListItem
-func _ListItem(w http.ResponseWriter, r *http.Request) {
+func (s ItemServices) _ListItem(w http.ResponseWriter, r *http.Request) {
 
 	// Parsing the query for userID.
 	var _userID int
@@ -87,7 +90,7 @@ func _ListItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call ListItem.
-	_items, _err := ListItem(_userID)
+	_items, _err := s.ListItem(_userID)
 
 	// Response code 200 OK for items.
 	if _items != nil {
@@ -114,7 +117,7 @@ func _ListItem(w http.ResponseWriter, r *http.Request) {
 }
 
 // _GetItem Is the route of GetItem
-func _GetItem(w http.ResponseWriter, r *http.Request) {
+func (s ItemServices) _GetItem(w http.ResponseWriter, r *http.Request) {
 
 	// Parsing the query for userID.
 	var _userID int
@@ -129,7 +132,7 @@ func _GetItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call GetItem.
-	_item, _err := GetItem(_userID, _itemID)
+	_item, _err := s.GetItem(_userID, _itemID)
 
 	// Response code 200 OK for item.
 	if _item != nil {
@@ -156,7 +159,7 @@ func _GetItem(w http.ResponseWriter, r *http.Request) {
 }
 
 // _DeleteItem Is the route of DeleteItem
-func _DeleteItem(w http.ResponseWriter, r *http.Request) {
+func (s ItemServices) _DeleteItem(w http.ResponseWriter, r *http.Request) {
 
 	// Parsing the query for userID.
 	var _userID int
@@ -171,7 +174,7 @@ func _DeleteItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call DeleteItem.
-	_err := DeleteItem(_userID, _itemID)
+	_err := s.DeleteItem(_userID, _itemID)
 
 	// Response code 400 Bad Request for err.
 	if _err != nil {
@@ -184,7 +187,7 @@ func _DeleteItem(w http.ResponseWriter, r *http.Request) {
 }
 
 // _CreateItem Is the route of CreateItem
-func _CreateItem(w http.ResponseWriter, r *http.Request) {
+func (s ItemServices) _CreateItem(w http.ResponseWriter, r *http.Request) {
 
 	// Parsing the query for userID.
 	var _userID int
@@ -200,7 +203,7 @@ func _CreateItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call CreateItem.
-	_itemID, _err := CreateItem(_userID, _item)
+	_itemID, _err := s.CreateItem(_userID, _item)
 
 	// Response code 200 OK for itemID.
 	if _itemID != 0 {
