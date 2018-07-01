@@ -1,6 +1,6 @@
 // Code generated; DO NOT EDIT.
+// file router_gen.go
 
-// router_gen.go
 package route1
 
 import (
@@ -11,35 +11,68 @@ import (
 	"strconv"
 )
 
-func Router() *mux.Router {
+// Router is generated do not edit.
+func Router() http.Handler {
 	router := mux.NewRouter()
 
 	// Registered routing GET /item/{itemID}
 	router.Path("/item/{itemID}").
 		Methods("GET").
-		HandlerFunc(_GetItem)
+		HandlerFunc(_operationGetItem)
 
 	// Registered routing PUT /item/
 	router.Path("/item/").
 		Methods("PUT").
-		HandlerFunc(_CreateItem)
+		HandlerFunc(_operationCreateItem)
 
 	return router
 }
 
-// _GetItem Is the route of GetItem
-func _GetItem(w http.ResponseWriter, r *http.Request) {
-
-	// Parsing the query for userID.
-	var _userID int
-	if i, err := strconv.ParseInt(r.URL.Query().Get("userID"), 0, 0); err == nil {
-		_userID = int(i)
+// _requestQueryUserId Parsing the query for of userID
+func _requestQueryUserId(r *http.Request) (userID int, err error) {
+	var _userID = r.URL.Query().Get("userID")
+	if i, err := strconv.ParseInt(_userID, 0, 0); err == nil {
+		userID = int(i)
 	}
 
-	// Parsing the path for itemID.
-	var _itemID int
-	if i, err := strconv.ParseInt(mux.Vars(r)["itemID"], 0, 0); err == nil {
-		_itemID = int(i)
+	return
+}
+
+// _requestPathItemId Parsing the path for of itemID
+func _requestPathItemId(r *http.Request) (itemID int, err error) {
+	var _itemID = mux.Vars(r)["itemID"]
+	if i, err := strconv.ParseInt(_itemID, 0, 0); err == nil {
+		itemID = int(i)
+	}
+
+	return
+}
+
+// _requestBodyItem Parsing the body for of item
+func _requestBodyItem(r *http.Request) (item *Item, err error) {
+	if body, err := ioutil.ReadAll(r.Body); err == nil {
+		r.Body.Close()
+		json.Unmarshal(body, &item)
+	}
+
+	return
+}
+
+// _operationGetItem Is the route of GetItem
+func _operationGetItem(w http.ResponseWriter, r *http.Request) {
+
+	// Parsing userID.
+	_userID, err := _requestQueryUserId(r)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	// Parsing itemID.
+	_itemID, err := _requestPathItemId(r)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
 	}
 
 	// Call GetItem.
@@ -65,24 +98,26 @@ func _GetItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(204)
 	w.Write(nil)
 	return
 }
 
-// _CreateItem Is the route of CreateItem
-func _CreateItem(w http.ResponseWriter, r *http.Request) {
+// _operationCreateItem Is the route of CreateItem
+func _operationCreateItem(w http.ResponseWriter, r *http.Request) {
 
-	// Parsing the query for userID.
-	var _userID int
-	if i, err := strconv.ParseInt(r.URL.Query().Get("userID"), 0, 0); err == nil {
-		_userID = int(i)
+	// Parsing userID.
+	_userID, err := _requestQueryUserId(r)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
 	}
 
-	// Parsing the body for item.
-	var _item *Item
-	if body, err := ioutil.ReadAll(r.Body); err == nil {
-		r.Body.Close()
-		json.Unmarshal(body, &_item)
+	// Parsing item.
+	_item, err := _requestBodyItem(r)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
 	}
 
 	// Call CreateItem.
@@ -108,6 +143,7 @@ func _CreateItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(204)
 	w.Write(nil)
 	return
 }

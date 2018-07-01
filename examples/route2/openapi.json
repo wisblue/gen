@@ -1,0 +1,281 @@
+{
+ "openapi": "3.0.1",
+ "info": {
+  "title": "OpenAPI Demo",
+  "description": "Demo of github.com/wzshiming/openapi",
+  "contact": {
+   "name": "wzshiming",
+   "url": "https://github.com/wzshiming",
+   "email": "wzshiming@foxmail.com"
+  },
+  "license": {
+   "name": "MIT",
+   "url": "https://github.com/wzshiming/openapi/blob/master/LICENSE"
+  },
+  "version": "0.0.1"
+ },
+ "servers": [
+  {
+   "url": "{scheme}{host}{port}{path}",
+   "variables": {
+    "host": {
+     "enum": [
+      "localhost"
+     ],
+     "default": "localhost"
+    },
+    "path": {
+     "enum": [
+      "/"
+     ],
+     "default": "/"
+    },
+    "port": {
+     "enum": [
+      ""
+     ],
+     "default": ""
+    },
+    "scheme": {
+     "enum": [
+      "http://",
+      "https://"
+     ],
+     "default": "http://"
+    }
+   }
+  }
+ ],
+ "paths": {
+  "/item": {
+   "get": {
+    "tags": [
+     "/item/"
+    ],
+    "description": "ListItem #route:\"GET /\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/userID.2bef"
+     }
+    ],
+    "responses": {
+     "200": {
+      "$ref": "#/components/responses/items.17a3"
+     },
+     "400": {
+      "$ref": "#/components/responses/err.3b83"
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "/item/"
+    ],
+    "description": "CreateItem #route:\"PUT /\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/userID.2bef"
+     }
+    ],
+    "requestBody": {
+     "$ref": "#/components/requestBodies/item.ff64"
+    },
+    "responses": {
+     "200": {
+      "$ref": "#/components/responses/itemID.563a"
+     },
+     "400": {
+      "$ref": "#/components/responses/err.3b83"
+     }
+    }
+   }
+  },
+  "/item/{itemID}": {
+   "get": {
+    "tags": [
+     "/item/"
+    ],
+    "description": "GetItem #route:\"GET /{itemID}\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/userID.2bef"
+     },
+     {
+      "$ref": "#/components/parameters/itemID.c1ac"
+     }
+    ],
+    "responses": {
+     "200": {
+      "$ref": "#/components/responses/item.9fad"
+     },
+     "400": {
+      "$ref": "#/components/responses/err.3b83"
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "/item/"
+    ],
+    "description": "UpdateItem #route:\"POST /{itemID}\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/userID.2bef"
+     },
+     {
+      "$ref": "#/components/parameters/itemID.c1ac"
+     }
+    ],
+    "requestBody": {
+     "$ref": "#/components/requestBodies/item.ff64"
+    },
+    "responses": {
+     "400": {
+      "$ref": "#/components/responses/err.3b83"
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "/item/"
+    ],
+    "description": "DeleteItem #route:\"DELETE /{itemID}\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/userID.2bef"
+     },
+     {
+      "$ref": "#/components/parameters/itemID.c1ac"
+     }
+    ],
+    "responses": {
+     "400": {
+      "$ref": "#/components/responses/err.3b83"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Item.96b9": {
+    "type": "object",
+    "properties": {
+     "ItemID": {
+      "type": "integer",
+      "description": "ItemID is the Item ID\n",
+      "format": "int64"
+     },
+     "Message": {
+      "type": "string",
+      "description": "Name is the message\n"
+     },
+     "Name": {
+      "type": "string",
+      "description": "Name is the name\n"
+     }
+    },
+    "description": "Item is a item\n"
+   },
+   "ItemServices.1857": {
+    "type": "object",
+    "description": "ItemServices #path:\"/item/\"#\n"
+   }
+  },
+  "responses": {
+   "err.3b83": {
+    "content": {
+     "text/plain": {
+      "schema": {
+       "type": "string",
+       "format": "error"
+      }
+     }
+    }
+   },
+   "item.9fad": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "$ref": "#/components/schemas/Item.96b9"
+      }
+     }
+    }
+   },
+   "itemID.563a": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "type": "integer",
+       "format": "int64"
+      }
+     }
+    }
+   },
+   "items.17a3": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "type": "array",
+       "items": {
+        "$ref": "#/components/schemas/Item.96b9"
+       }
+      }
+     }
+    }
+   }
+  },
+  "parameters": {
+   "itemID.c1ac": {
+    "name": "itemID",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "integer",
+     "format": "int64"
+    }
+   },
+   "userID.2bef": {
+    "name": "userID",
+    "in": "query",
+    "schema": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "requestBodies": {
+   "item.ff64": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "$ref": "#/components/schemas/Item.96b9"
+      }
+     }
+    }
+   }
+  }
+ },
+ "tags": [
+  {
+   "name": "/item/",
+   "description": "ItemServices #path:\"/item/\"#\n"
+  },
+  {
+   "name": "/item/",
+   "description": "ItemServices #path:\"/item/\"#\n"
+  },
+  {
+   "name": "/item/",
+   "description": "ItemServices #path:\"/item/\"#\n"
+  },
+  {
+   "name": "/item/",
+   "description": "ItemServices #path:\"/item/\"#\n"
+  },
+  {
+   "name": "/item/",
+   "description": "ItemServices #path:\"/item/\"#\n"
+  }
+ ]
+}

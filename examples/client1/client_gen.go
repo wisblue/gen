@@ -1,6 +1,6 @@
 // Code generated; DO NOT EDIT.
+// file client_gen.go
 
-// client_gen.go
 package main
 
 import (
