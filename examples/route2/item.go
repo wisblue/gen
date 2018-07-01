@@ -8,6 +8,7 @@
 //   4. Open http://127.0.0.1:8080/swagger/?url=./openapi.json# with your browser.
 
 //go:generate gen route -p github.com/wzshiming/gen/examples/route2
+//go:generate gen openapi -p github.com/wzshiming/gen/examples/route2
 
 package route2
 
