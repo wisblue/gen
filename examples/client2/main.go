@@ -13,13 +13,15 @@ func main() {
 		Name:    "hello",
 		Message: "Time " + time.Now().String(),
 	}
-	itemID, err := CreateItem(1, item)
+
+	itemServices := ItemServices{}
+	itemID, err := itemServices.CreateItem(1, item)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	ret, err := GetItem(1, itemID)
+	ret, err := itemServices.GetItem(1, itemID)
 	if err != nil {
 		fmt.Println(err)
 		return
