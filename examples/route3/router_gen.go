@@ -30,13 +30,6 @@ func Router() http.Handler {
 	return router
 }
 
-// _requestQueryUuid Parsing the query for of uuid
-func _requestQueryUuid(r *http.Request) (uuid *string, err error) {
-	var _uuid = r.URL.Query().Get("uuid")
-	uuid = &_uuid
-	return
-}
-
 // _requestBodyItem Parsing the body for of item
 func _requestBodyItem(r *http.Request) (item *Item, err error) {
 	if body, err := ioutil.ReadAll(r.Body); err == nil {
@@ -53,6 +46,13 @@ func _requestCookieToken(r *http.Request) (token string, err error) {
 		token = cookie.Value
 	}
 
+	return
+}
+
+// _requestQueryUuid Parsing the query for of uuid
+func _requestQueryUuid(r *http.Request) (uuid *string, err error) {
+	var _uuid = r.URL.Query().Get("uuid")
+	uuid = &_uuid
 	return
 }
 
@@ -135,7 +135,35 @@ func (s ItemServices) _operationCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call Create.
-	_err := s.Create(_userID, _uuid, _item)
+	_item, _token, _err := s.Create(_userID, _uuid, _item)
+
+	// Response code 200 OK for item.
+	if _item != nil {
+		data, err := json.Marshal(_item)
+		if err != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(200)
+		w.Write(data)
+		return
+	}
+
+	// Response code 200 OK for token.
+	if _token != "" {
+		data, err := json.Marshal(_token)
+		if err != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(200)
+		w.Write(data)
+		return
+	}
 
 	// Response code 400 Bad Request for err.
 	if _err != nil {

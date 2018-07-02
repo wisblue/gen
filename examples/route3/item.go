@@ -32,8 +32,13 @@ func (*ItemServices) Verify(token string /* #in:"cookie"# */) (userID uint64, er
 }
 
 // Create #route:"PUT /"#
-func (*ItemServices) Create(userID uint64 /* #in:"security"# */, uuid *string, item *Item) (err error) {
-	return nil
+func (*ItemServices) Create(userID uint64 /* #in:"security"# */, uuid *string, item *Item) (item *Item, token string /* #in:"header"# */, err error) {
+	return nil, "", nil
+}
+
+// Create #route:"POST /"#
+func (*ItemServices) Update(userID uint64 /* #in:"security"# */, uuid *string, item *Item) (item *Item, err error) {
+	return nil, "", nil
 }
 
 // List #route:"GET /"#

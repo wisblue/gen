@@ -60,10 +60,26 @@
     ],
     "responses": {
      "200": {
-      "$ref": "#/components/responses/items.17a3"
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/Item.a2c0"
+         }
+        }
+       }
+      }
      },
      "400": {
-      "$ref": "#/components/responses/err.3b83"
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
      }
     }
    },
@@ -81,8 +97,73 @@
      "$ref": "#/components/requestBodies/item.ff64"
     },
     "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Item.a2c0"
+        }
+       }
+      }
+     },
      "400": {
-      "$ref": "#/components/responses/err.3b83"
+      "headers": {
+       "token": {
+        "name": "token",
+        "in": "header",
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "Verify": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "/item/"
+    ],
+    "description": "Create #route:\"POST /\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/uuid.e592"
+     }
+    ],
+    "requestBody": {
+     "$ref": "#/components/requestBodies/item.ff64"
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Item.a2c0"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
      }
     },
     "security": [
@@ -120,7 +201,7 @@
    }
   },
   "responses": {
-   "err.3b83": {
+   "err.4a37": {
     "content": {
      "text/plain": {
       "schema": {
@@ -130,7 +211,16 @@
      }
     }
    },
-   "items.17a3": {
+   "item.8fb9": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "$ref": "#/components/schemas/Item.a2c0"
+      }
+     }
+    }
+   },
+   "items.156c": {
     "content": {
      "application/json": {
       "schema": {
@@ -142,7 +232,7 @@
      }
     }
    },
-   "userID.44ad": {
+   "userID.be3a": {
     "content": {
      "application/json": {
       "schema": {
@@ -190,6 +280,10 @@
   }
  },
  "tags": [
+  {
+   "name": "/item/",
+   "description": "ItemServices #path:\"/item/\"#\n"
+  },
   {
    "name": "/item/",
    "description": "ItemServices #path:\"/item/\"#\n"
