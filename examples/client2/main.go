@@ -1,4 +1,4 @@
-//go:generate gen client -p github.com/wzshiming/gen/examples/route2
+//go:generate gen client github.com/wzshiming/gen/examples/route2
 
 package main
 
