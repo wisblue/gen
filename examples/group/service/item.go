@@ -1,16 +1,5 @@
-// The gen tool automatically generates routing code and openapi3 documents
-// Gen can also generate client code
-//
-// Basic usage:
-//   1. Install gen tool `go get -u -v github.com/wzshiming/gen/cmd/gen`
-//   2. Add gen tool to $PATH
-//   3. Execute it `gen run github.com/wzshiming/gen/examples/route2`
-//   4. Open http://127.0.0.1:8080/swagger/?url=./openapi.json# with your browser.
 
-//go:generate gen route github.com/wzshiming/gen/examples/route2
-//go:generate gen openapi github.com/wzshiming/gen/examples/route2
-
-package route2
+package service
 
 import (
 	"fmt"
@@ -23,7 +12,7 @@ type Item struct {
 	Message string // Name is the message
 }
 
-var size int
+var sizeitems int
 var mapitems = map[int][]*Item{}
 
 // ItemServices #path:"/item/"#
@@ -31,10 +20,10 @@ type ItemServices struct{}
 
 // CreateItem #route:"PUT /"#
 func (*ItemServices) CreateItem(userID int, item *Item) (itemID int, err error) {
-	size++
-	item.ItemID = size
+	sizeitems++
+	item.ItemID = sizeitems
 	mapitems[userID] = append(mapitems[userID], item)
-	return size, nil
+	return sizeitems, nil
 }
 
 // ListItem #route:"GET /"#

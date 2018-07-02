@@ -1,7 +1,7 @@
 // Code generated; DO NOT EDIT.
 // file router_gen.go
 
-package route1
+package service
 
 import (
 	"encoding/json"

@@ -1,7 +1,7 @@
 // Code generated; DO NOT EDIT.
 // file router_gen.go
 
-package route2
+package service
 
 import (
 	"encoding/json"
@@ -11,12 +11,30 @@ import (
 	"strconv"
 )
 
+// UserServices Define the method scope
+var _globalUserServices UserServices
+
 // ItemServices Define the method scope
 var _globalItemServices ItemServices
 
 // Router is generated do not edit.
 func Router() http.Handler {
 	router := mux.NewRouter()
+
+	// Registered routing GET /user/{userID}
+	router.Path("/user/{userID}").
+		Methods("GET").
+		HandlerFunc(_globalUserServices._operationGet)
+
+	// Registered routing DELETE /user/{userID}
+	router.Path("/user/{userID}").
+		Methods("DELETE").
+		HandlerFunc(_globalUserServices._operationDelete)
+
+	// Registered routing PUT /user
+	router.Path("/user").
+		Methods("PUT").
+		HandlerFunc(_globalUserServices._operationCreate)
 
 	// Registered routing POST /item/{itemID}
 	router.Path("/item/{itemID}").
@@ -46,6 +64,26 @@ func Router() http.Handler {
 	return router
 }
 
+// _requestPathUserId Parsing the path for of userID
+func _requestPathUserId(r *http.Request) (userID int, err error) {
+	var _userID = mux.Vars(r)["userID"]
+	if i, err := strconv.ParseInt(_userID, 0, 0); err == nil {
+		userID = int(i)
+	}
+
+	return
+}
+
+// _requestBodyUser Parsing the body for of user
+func _requestBodyUser(r *http.Request) (user *User, err error) {
+	if body, err := ioutil.ReadAll(r.Body); err == nil {
+		r.Body.Close()
+		json.Unmarshal(body, &user)
+	}
+
+	return
+}
+
 // _requestQueryUserId Parsing the query for of userID
 func _requestQueryUserId(r *http.Request) (userID int, err error) {
 	var _userID = r.URL.Query().Get("userID")
@@ -73,6 +111,106 @@ func _requestBodyItem(r *http.Request) (item *Item, err error) {
 		json.Unmarshal(body, &item)
 	}
 
+	return
+}
+
+// _operationGet Is the route of Get
+func (s UserServices) _operationGet(w http.ResponseWriter, r *http.Request) {
+
+	// Parsing userID.
+	_userID, err := _requestPathUserId(r)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	// Call Get.
+	_user, _err := s.Get(_userID)
+
+	// Response code 200 OK for user.
+	if _user != nil {
+		data, err := json.Marshal(_user)
+		if err != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(200)
+		w.Write(data)
+		return
+	}
+
+	// Response code 400 Bad Request for err.
+	if _err != nil {
+		http.Error(w, _err.Error(), 400)
+		return
+	}
+
+	w.WriteHeader(204)
+	w.Write(nil)
+	return
+}
+
+// _operationDelete Is the route of Delete
+func (s UserServices) _operationDelete(w http.ResponseWriter, r *http.Request) {
+
+	// Parsing userID.
+	_userID, err := _requestPathUserId(r)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	// Call Delete.
+	_err := s.Delete(_userID)
+
+	// Response code 400 Bad Request for err.
+	if _err != nil {
+		http.Error(w, _err.Error(), 400)
+		return
+	}
+
+	w.WriteHeader(204)
+	w.Write(nil)
+	return
+}
+
+// _operationCreate Is the route of Create
+func (s UserServices) _operationCreate(w http.ResponseWriter, r *http.Request) {
+
+	// Parsing user.
+	_user, err := _requestBodyUser(r)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	// Call Create.
+	_userID, _err := s.Create(_user)
+
+	// Response code 200 OK for userID.
+	if _userID != 0 {
+		data, err := json.Marshal(_userID)
+		if err != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(200)
+		w.Write(data)
+		return
+	}
+
+	// Response code 400 Bad Request for err.
+	if _err != nil {
+		http.Error(w, _err.Error(), 400)
+		return
+	}
+
+	w.WriteHeader(204)
+	w.Write(nil)
 	return
 }
 

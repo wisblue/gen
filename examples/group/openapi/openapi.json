@@ -60,10 +60,26 @@
     ],
     "responses": {
      "200": {
-      "$ref": "#/components/responses/items.17a3"
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/Item.2fd3"
+         }
+        }
+       }
+      }
      },
      "400": {
-      "$ref": "#/components/responses/err.3b83"
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
      }
     }
    },
@@ -82,10 +98,24 @@
     },
     "responses": {
      "200": {
-      "$ref": "#/components/responses/itemID.563a"
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "integer",
+         "format": "int64"
+        }
+       }
+      }
      },
      "400": {
-      "$ref": "#/components/responses/err.3b83"
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
      }
     }
    }
@@ -106,10 +136,23 @@
     ],
     "responses": {
      "200": {
-      "$ref": "#/components/responses/item.9fad"
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Item.2fd3"
+        }
+       }
+      }
      },
      "400": {
-      "$ref": "#/components/responses/err.3b83"
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
      }
     }
    },
@@ -131,7 +174,14 @@
     },
     "responses": {
      "400": {
-      "$ref": "#/components/responses/err.3b83"
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
      }
     }
    },
@@ -150,7 +200,104 @@
     ],
     "responses": {
      "400": {
-      "$ref": "#/components/responses/err.3b83"
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/user": {
+   "put": {
+    "tags": [
+     "/user/"
+    ],
+    "description": "CreateUser #route:\"PUT /\"#\n",
+    "requestBody": {
+     "$ref": "#/components/requestBodies/user.a952"
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "integer",
+         "format": "int64"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/user/{userID}": {
+   "get": {
+    "tags": [
+     "/user/"
+    ],
+    "description": "GetUser #route:\"GET /{userID}\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/userID.dc86"
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/User.b847"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "/user/"
+    ],
+    "description": "DeleteUser #route:\"DELETE /{userID}\"#\n",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/userID.dc86"
+     }
+    ],
+    "responses": {
+     "400": {
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string",
+         "format": "error"
+        }
+       }
+      }
      }
     }
    }
@@ -158,7 +305,7 @@
  },
  "components": {
   "schemas": {
-   "Item.96b9": {
+   "Item.2fd3": {
     "type": "object",
     "properties": {
      "ItemID": {
@@ -177,13 +324,32 @@
     },
     "description": "Item is a item\n"
    },
-   "ItemServices.1857": {
+   "ItemServices.58aa": {
     "type": "object",
     "description": "ItemServices #path:\"/item/\"#\n"
+   },
+   "User.b847": {
+    "type": "object",
+    "properties": {
+     "Name": {
+      "type": "string",
+      "description": "Name is the name\n"
+     },
+     "UserID": {
+      "type": "integer",
+      "description": "UserID is the User ID\n",
+      "format": "int64"
+     }
+    },
+    "description": "User is a user\n"
+   },
+   "UserServices.a448": {
+    "type": "object",
+    "description": "UserServices #path:\"/user/\"#\n"
    }
   },
   "responses": {
-   "err.3b83": {
+   "err.4a37": {
     "content": {
      "text/plain": {
       "schema": {
@@ -193,16 +359,16 @@
      }
     }
    },
-   "item.9fad": {
+   "item.8fb9": {
     "content": {
      "application/json": {
       "schema": {
-       "$ref": "#/components/schemas/Item.96b9"
+       "$ref": "#/components/schemas/Item.2fd3"
       }
      }
     }
    },
-   "itemID.563a": {
+   "itemID.a816": {
     "content": {
      "application/json": {
       "schema": {
@@ -212,14 +378,33 @@
      }
     }
    },
-   "items.17a3": {
+   "items.156c": {
     "content": {
      "application/json": {
       "schema": {
        "type": "array",
        "items": {
-        "$ref": "#/components/schemas/Item.96b9"
+        "$ref": "#/components/schemas/Item.2fd3"
        }
+      }
+     }
+    }
+   },
+   "user.f53f": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "$ref": "#/components/schemas/User.b847"
+      }
+     }
+    }
+   },
+   "userID.0cac": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "type": "integer",
+       "format": "int64"
       }
      }
     }
@@ -242,6 +427,15 @@
      "type": "integer",
      "format": "int64"
     }
+   },
+   "userID.dc86": {
+    "name": "userID",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "integer",
+     "format": "int64"
+    }
    }
   },
   "requestBodies": {
@@ -249,7 +443,16 @@
     "content": {
      "application/json": {
       "schema": {
-       "$ref": "#/components/schemas/Item.96b9"
+       "$ref": "#/components/schemas/Item.2fd3"
+      }
+     }
+    }
+   },
+   "user.a952": {
+    "content": {
+     "application/json": {
+      "schema": {
+       "$ref": "#/components/schemas/User.b847"
       }
      }
     }
@@ -257,6 +460,18 @@
   }
  },
  "tags": [
+  {
+   "name": "/user/",
+   "description": "UserServices #path:\"/user/\"#\n"
+  },
+  {
+   "name": "/user/",
+   "description": "UserServices #path:\"/user/\"#\n"
+  },
+  {
+   "name": "/user/",
+   "description": "UserServices #path:\"/user/\"#\n"
+  },
   {
    "name": "/item/",
    "description": "ItemServices #path:\"/item/\"#\n"

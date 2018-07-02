@@ -1,5 +1,5 @@
 // Code generated; DO NOT EDIT.
-// file client_gen.go
+// file ../client/client_gen.go
 
 package main
 
@@ -25,7 +25,6 @@ func GetItem(_userID int, _itemID int) (_item *Item, _err error) {
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetPath("itemID", fmt.Sprint(_itemID)).
 		Get("/item/{itemID}")
-
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +51,6 @@ func CreateItem(_userID int, _item *Item) (_itemID int, _err error) {
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetJSON(_item).
 		Put("/item/")
-
 	if err != nil {
 		return 0, err
 	}

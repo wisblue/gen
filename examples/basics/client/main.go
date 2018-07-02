@@ -1,5 +1,3 @@
-//go:generate gen client github.com/wzshiming/gen/examples/route2
-
 package main
 
 import (
@@ -13,15 +11,13 @@ func main() {
 		Name:    "hello",
 		Message: "Time " + time.Now().String(),
 	}
-
-	itemServices := ItemServices{}
-	itemID, err := itemServices.CreateItem(1, item)
+	itemID, err := CreateItem(1, item)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	ret, err := itemServices.GetItem(1, itemID)
+	ret, err := GetItem(1, itemID)
 	if err != nil {
 		fmt.Println(err)
 		return
