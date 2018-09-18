@@ -20,13 +20,6 @@ type Item struct {
 // ItemServices #path:"/item/"#
 type ItemServices struct{}
 
-// Verify #security:"apiKey"#
-func (ItemServices) Verify(_token string /* #in:"header"# */) {
-	Client = Client.
-		SetHeader("token", fmt.Sprint(_token))
-
-}
-
 var Client = requests.NewClient().NewRequest()
 
 // Create #route:"POST /"#

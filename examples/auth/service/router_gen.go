@@ -36,13 +36,6 @@ func Router() http.Handler {
 	return router
 }
 
-// _requestQueryUuid Parsing the query for of uuid
-func _requestQueryUuid(r *http.Request) (uuid *string, err error) {
-	var _uuid = r.URL.Query().Get("uuid")
-	uuid = &_uuid
-	return
-}
-
 // _requestBodyItem Parsing the body for of item
 func _requestBodyItem(r *http.Request) (item *Item, err error) {
 	if body, err := ioutil.ReadAll(r.Body); err == nil {
@@ -53,37 +46,18 @@ func _requestBodyItem(r *http.Request) (item *Item, err error) {
 	return
 }
 
-// _requestHeaderToken Parsing the header for of token
-func _requestHeaderToken(r *http.Request) (token string, err error) {
-	var _token = r.Header.Get("token")
-	token = _token
+// _requestQueryUuid Parsing the query for of uuid
+func _requestQueryUuid(r *http.Request) (uuid *string, err error) {
+	var _uuid = r.URL.Query().Get("uuid")
+	uuid = &_uuid
 	return
-}
-
-// _securityVerify Is the security of Verify
-func _securityVerify(r *http.Request) (userID uint64, err error) {
-
-	// Parsing token.
-	_token, err := _requestHeaderToken(r)
-	if err != nil {
-		return
-	}
-
-	// Call Verify.
-	return _globalItemServices.Verify(_token)
-
 }
 
 // _operationUpdate Is the route of Update
 func (s ItemServices) _operationUpdate(w http.ResponseWriter, r *http.Request) {
 
-	// Permission verification call Verify.
-	_userID, err := _securityVerify(r)
-	if err != nil {
-		http.Error(w, err.Error(), 403)
-		return
-	}
-
+	// Permission verification undefined.
+	var _userID uint64
 	// Parsing uuid.
 	_uuid, err := _requestQueryUuid(r)
 	if err != nil {
@@ -104,11 +78,13 @@ func (s ItemServices) _operationUpdate(w http.ResponseWriter, r *http.Request) {
 	// Response code 400 Bad Request for err.
 	if _err != nil {
 		http.Error(w, _err.Error(), 400)
+
 		return
 	}
 
 	w.WriteHeader(204)
 	w.Write(nil)
+
 	return
 }
 
@@ -138,30 +114,35 @@ func (s ItemServices) _operationList(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
 		w.Write(data)
+
 		return
 	}
 
 	// Response code 400 Bad Request for err.
 	if _err != nil {
 		http.Error(w, _err.Error(), 400)
+
 		return
 	}
 
-	w.WriteHeader(204)
-	w.Write(nil)
+	data, err := json.Marshal(_items)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.WriteHeader(200)
+	w.Write(data)
+
 	return
 }
 
 // _operationCreate Is the route of Create
 func (s ItemServices) _operationCreate(w http.ResponseWriter, r *http.Request) {
 
-	// Permission verification call Verify.
-	_userID, err := _securityVerify(r)
-	if err != nil {
-		http.Error(w, err.Error(), 403)
-		return
-	}
-
+	// Permission verification undefined.
+	var _userID uint64
 	// Parsing uuid.
 	_uuid, err := _requestQueryUuid(r)
 	if err != nil {
@@ -184,10 +165,11 @@ func (s ItemServices) _operationCreate(w http.ResponseWriter, r *http.Request) {
 	// Response code 400 Bad Request for err.
 	if _err != nil {
 		http.Error(w, _err.Error(), 400)
+
 		return
 	}
 
-	w.WriteHeader(204)
-	w.Write(nil)
+	http.Error(w, _err.Error(), 400)
+
 	return
 }

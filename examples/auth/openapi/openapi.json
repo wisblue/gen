@@ -55,7 +55,7 @@
     "description": "List #route:\"GET /\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/uuid.e592"
+      "$ref": "#/components/parameters/uuid.45ba"
      }
     ],
     "responses": {
@@ -90,22 +90,16 @@
     "description": "Create #route:\"PUT /\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/uuid.e592"
+      "$ref": "#/components/parameters/uuid.45ba"
      }
     ],
     "requestBody": {
-     "$ref": "#/components/requestBodies/item.ff64"
+     "$ref": "#/components/requestBodies/item.3d84"
     },
     "responses": {
      "400": {
       "headers": {
-       "token": {
-        "name": "token",
-        "in": "header",
-        "schema": {
-         "type": "string"
-        }
-       }
+       "token": {}
       },
       "content": {
        "text/plain": {
@@ -116,12 +110,7 @@
        }
       }
      }
-    },
-    "security": [
-     {
-      "Verify": []
-     }
-    ]
+    }
    },
    "post": {
     "tags": [
@@ -130,11 +119,11 @@
     "description": "Create #route:\"POST /\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/uuid.e592"
+      "$ref": "#/components/parameters/uuid.45ba"
      }
     ],
     "requestBody": {
-     "$ref": "#/components/requestBodies/item.ff64"
+     "$ref": "#/components/requestBodies/item.3d84"
     },
     "responses": {
      "400": {
@@ -147,12 +136,7 @@
        }
       }
      }
-    },
-    "security": [
-     {
-      "Verify": []
-     }
-    ]
+    }
    }
   }
  },
@@ -204,28 +188,10 @@
       }
      }
     }
-   },
-   "userID.be3a": {
-    "content": {
-     "application/json": {
-      "schema": {
-       "type": "integer",
-       "format": "uin64"
-      }
-     }
-    }
    }
   },
   "parameters": {
-   "token.3ded": {
-    "name": "token",
-    "in": "header",
-    "description": " #in:\"header\"#\n",
-    "schema": {
-     "type": "string"
-    }
-   },
-   "uuid.e592": {
+   "uuid.45ba": {
     "name": "uuid",
     "in": "query",
     "schema": {
@@ -234,7 +200,7 @@
    }
   },
   "requestBodies": {
-   "item.ff64": {
+   "item.3d84": {
     "content": {
      "application/json": {
       "schema": {
@@ -242,13 +208,6 @@
       }
      }
     }
-   }
-  },
-  "securitySchemes": {
-   "Verify": {
-    "type": "apiKey",
-    "name": "token",
-    "in": "header"
    }
   }
  },

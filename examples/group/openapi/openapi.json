@@ -55,7 +55,7 @@
     "description": "ListItem #route:\"GET /\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/userID.2bef"
+      "$ref": "#/components/parameters/userID.5458"
      }
     ],
     "responses": {
@@ -90,11 +90,11 @@
     "description": "CreateItem #route:\"PUT /\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/userID.2bef"
+      "$ref": "#/components/parameters/userID.5458"
      }
     ],
     "requestBody": {
-     "$ref": "#/components/requestBodies/item.ff64"
+     "$ref": "#/components/requestBodies/item.3d84"
     },
     "responses": {
      "200": {
@@ -128,10 +128,10 @@
     "description": "GetItem #route:\"GET /{itemID}\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/userID.2bef"
+      "$ref": "#/components/parameters/userID.5458"
      },
      {
-      "$ref": "#/components/parameters/itemID.c1ac"
+      "$ref": "#/components/parameters/itemID.68cf"
      }
     ],
     "responses": {
@@ -163,14 +163,14 @@
     "description": "UpdateItem #route:\"POST /{itemID}\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/userID.2bef"
+      "$ref": "#/components/parameters/userID.5458"
      },
      {
-      "$ref": "#/components/parameters/itemID.c1ac"
+      "$ref": "#/components/parameters/itemID.68cf"
      }
     ],
     "requestBody": {
-     "$ref": "#/components/requestBodies/item.ff64"
+     "$ref": "#/components/requestBodies/item.3d84"
     },
     "responses": {
      "400": {
@@ -192,10 +192,10 @@
     "description": "DeleteItem #route:\"DELETE /{itemID}\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/userID.2bef"
+      "$ref": "#/components/parameters/userID.5458"
      },
      {
-      "$ref": "#/components/parameters/itemID.c1ac"
+      "$ref": "#/components/parameters/itemID.68cf"
      }
     ],
     "responses": {
@@ -219,7 +219,7 @@
     ],
     "description": "CreateUser #route:\"PUT /\"#\n",
     "requestBody": {
-     "$ref": "#/components/requestBodies/user.a952"
+     "$ref": "#/components/requestBodies/user.dda2"
     },
     "responses": {
      "200": {
@@ -253,7 +253,7 @@
     "description": "GetUser #route:\"GET /{userID}\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/userID.dc86"
+      "$ref": "#/components/parameters/userID.bb79"
      }
     ],
     "responses": {
@@ -285,7 +285,7 @@
     "description": "DeleteUser #route:\"DELETE /{userID}\"#\n",
     "parameters": [
      {
-      "$ref": "#/components/parameters/userID.dc86"
+      "$ref": "#/components/parameters/userID.bb79"
      }
     ],
     "responses": {
@@ -411,7 +411,7 @@
    }
   },
   "parameters": {
-   "itemID.c1ac": {
+   "itemID.68cf": {
     "name": "itemID",
     "in": "path",
     "required": true,
@@ -420,7 +420,7 @@
      "format": "int64"
     }
    },
-   "userID.2bef": {
+   "userID.5458": {
     "name": "userID",
     "in": "query",
     "schema": {
@@ -428,7 +428,7 @@
      "format": "int64"
     }
    },
-   "userID.dc86": {
+   "userID.bb79": {
     "name": "userID",
     "in": "path",
     "required": true,
@@ -439,7 +439,7 @@
    }
   },
   "requestBodies": {
-   "item.ff64": {
+   "item.3d84": {
     "content": {
      "application/json": {
       "schema": {
@@ -448,7 +448,7 @@
      }
     }
    },
-   "user.a952": {
+   "user.dda2": {
     "content": {
      "application/json": {
       "schema": {
