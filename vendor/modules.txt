@@ -1,0 +1,38 @@
+# github.com/gorilla/context v1.1.1
+github.com/gorilla/context
+# github.com/gorilla/mux v1.6.2
+github.com/gorilla/mux
+# github.com/wzshiming/gotype v0.2.2
+github.com/wzshiming/gotype
+# github.com/wzshiming/namecase v3.0.0+incompatible
+github.com/wzshiming/namecase
+# github.com/wzshiming/openapi v0.0.0-20180703075736-4798c4289cbc
+github.com/wzshiming/openapi/util
+github.com/wzshiming/openapi/spec
+# github.com/wzshiming/requests v1.1.0
+github.com/wzshiming/requests
+# golang.org/x/net v0.0.0-20180911220305-26e67e76b6c3
+golang.org/x/net/html/charset
+golang.org/x/net/publicsuffix
+golang.org/x/net/html
+golang.org/x/net/html/atom
+# golang.org/x/text v0.3.0
+golang.org/x/text/encoding
+golang.org/x/text/transform
+golang.org/x/text/encoding/charmap
+golang.org/x/text/encoding/htmlindex
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/japanese
+golang.org/x/text/encoding/korean
+golang.org/x/text/encoding/simplifiedchinese
+golang.org/x/text/encoding/traditionalchinese
+golang.org/x/text/encoding/unicode
+golang.org/x/text/language
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/runes
+golang.org/x/text/internal/tag
+# gopkg.in/urfave/cli.v2 v2.0.0-20180128182452-d3ae77c26ac8
+gopkg.in/urfave/cli.v2
+# gopkg.in/yaml.v2 v2.2.1
+gopkg.in/yaml.v2
