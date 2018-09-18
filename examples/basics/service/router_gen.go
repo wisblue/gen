@@ -28,11 +28,11 @@ func Router() http.Handler {
 	return router
 }
 
-// _requestQueryUserId Parsing the query for of userID
-func _requestQueryUserId(r *http.Request) (userID int, err error) {
-	var _userID = r.URL.Query().Get("userID")
-	if i, err := strconv.ParseInt(_userID, 0, 0); err == nil {
-		userID = int(i)
+// _requestBodyItem Parsing the body for of item
+func _requestBodyItem(r *http.Request) (item *Item, err error) {
+	if body, err := ioutil.ReadAll(r.Body); err == nil {
+		r.Body.Close()
+		json.Unmarshal(body, &item)
 	}
 
 	return
@@ -48,11 +48,11 @@ func _requestPathItemId(r *http.Request) (itemID int, err error) {
 	return
 }
 
-// _requestBodyItem Parsing the body for of item
-func _requestBodyItem(r *http.Request) (item *Item, err error) {
-	if body, err := ioutil.ReadAll(r.Body); err == nil {
-		r.Body.Close()
-		json.Unmarshal(body, &item)
+// _requestQueryUserId Parsing the query for of userID
+func _requestQueryUserId(r *http.Request) (userID int, err error) {
+	var _userID = r.URL.Query().Get("userID")
+	if i, err := strconv.ParseInt(_userID, 0, 0); err == nil {
+		userID = int(i)
 	}
 
 	return
@@ -89,17 +89,27 @@ func _operationGetItem(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
 		w.Write(data)
+
 		return
 	}
 
 	// Response code 400 Bad Request for err.
 	if _err != nil {
 		http.Error(w, _err.Error(), 400)
+
 		return
 	}
 
-	w.WriteHeader(204)
-	w.Write(nil)
+	data, err := json.Marshal(_item)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.WriteHeader(200)
+	w.Write(data)
+
 	return
 }
 
@@ -134,16 +144,26 @@ func _operationCreateItem(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
 		w.Write(data)
+
 		return
 	}
 
 	// Response code 400 Bad Request for err.
 	if _err != nil {
 		http.Error(w, _err.Error(), 400)
+
 		return
 	}
 
-	w.WriteHeader(204)
-	w.Write(nil)
+	data, err := json.Marshal(_itemID)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.WriteHeader(200)
+	w.Write(data)
+
 	return
 }

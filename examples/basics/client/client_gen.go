@@ -24,7 +24,7 @@ func GetItem(_userID int, _itemID int) (_item *Item, _err error) {
 	resp, err := Client.Clone().
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetPath("itemID", fmt.Sprint(_itemID)).
-		Get("/item/{itemID}")
+		get("/item/{itemID}")
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func CreateItem(_userID int, _item *Item) (_itemID int, _err error) {
 	resp, err := Client.Clone().
 		SetQuery("userID", fmt.Sprint(_userID)).
 		SetJSON(_item).
-		Put("/item/")
+		put("/item/")
 	if err != nil {
 		return 0, err
 	}
